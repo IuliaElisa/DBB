@@ -1,0 +1,85 @@
+{%  extends 'accounts/main.html' %}
+
+{% block content %}
+
+{%  include 'accounts/status.html' %}
+
+<br>
+<div class="alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+    <strong>Warning!</strong> There are <b>{{most_dangerous_count}}  </b> high risk asteroids (level greater than 5). 
+  </div>
+
+<h4> Search for Asteroids: </h4>
+<form action="{% url 'search_results' %}" method="get">
+	<input name="q" type="text" placeholder="Search..."> <button class="btn btn-sm btn-info" type="submit">Go</button>
+  </form>
+  <br>
+  
+  {% for article in articles %}
+	<h2>{{article.name}}</h2>
+    {{article.content.html|safe}}
+  	{% endfor %}
+  <br>
+
+<div class="row">
+	<div class="col-md-5">
+		<h5>CONTRIBUTORS:</h5>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href=" {% url 'add_contributor' %}">Add a contributor</a>
+			<table class="table table-sm">
+				<tr>
+					<th> </th>
+					<th>Name</th>
+					<th>Contact</th>
+					<th>Institution</th>
+				</tr>
+
+				{% for contributor in contributors %}
+					<tr>
+						<td><a class="btn btn-sm btn-info" href="{% url 'contributor' contributor.id %}">View</a></td>
+						<td>{{contributor.name}}</td>
+						<td>{{contributor.email}}</td>
+						<td>{{contributor.institution}}</td>
+					</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+
+	<div class="col-md-7">
+		<h5>LAST Contributions</h5>
+		<div class="card card-body">
+			
+			<table class="table table-sm">
+				<tr>
+					<th>Author</th>
+					<th>Object</th>
+					<th>Diameter</th>
+					<th>Magnitude</th>
+					<th>Category</th>
+					<th>Tag</th>
+				</tr>
+
+				{% for object in objects %}
+					<tr>
+						<td>{{object.contributor}}</td>
+						<td>{{object.name}}</td>
+						<td>{{object.diameter}}</td>
+						<td>{{object.magnitude}}</td>
+						<td>{{object.category}}</td>
+						<td>{{object.tags}}</td>
+					</tr>
+				{% endfor %}
+
+		
+			</table>
+		</div>
+	</div>
+
+</div>
+
+{% endblock %}
+

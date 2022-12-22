@@ -1,0 +1,117 @@
+{%  extends 'accounts/main.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<br>
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h3>Contributor: <i> {{ contributor.name }} </i></h3>
+			<hr> 
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'add_object' contributor.id %}">Add Object</a>
+		</div>
+	</div>
+</div>
+
+<br>
+<div class="row">
+<div class="col">
+	<div class="col-md">
+		<div class="card text-center text-white  mb-3" id="orders-delivered">
+			  <div class="card-header">
+				  <h6 class="card-title">Contact Information </h6>
+			  </div>
+			  <div class="card-body">
+				<p class="card-title">{{contributor.email}} | {{contributor.institution}}</p>
+			  </div>
+
+		</div>
+	</div>
+</div>
+
+
+<div class="col">
+	<div class="col-md">
+		<div class="card text-center text-white  mb-3" id="orders-delivered">
+			  <div class="card-header">
+				  <h6 class="card-title">Total contributions made by {{ contributor.name}}</h6>
+			  </div>
+			  <div class="card-body">
+				<p class="card-title">{{object_count}}</p>
+			  </div>
+
+		</div>
+	</div>
+</div>
+</div>
+</div>
+
+
+<br>
+<br>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h3 style="color: #b32400"> Results </h3>
+			<table class="table table-sm">
+				<tr>
+					<th>Asteroid</th>
+					<th>Description</th>
+					<th>Category</th>
+					<th>Diameter</th>
+				</tr>
+
+				{% for object in objects %}
+				<tr>
+					<td>{{object.name}}</td>
+					<td>{{object.description}}</td>
+					<td>{{object.category}}</td>
+					<td>{{object.diameter}}</td>
+				</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+</div>
+
+<br>
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+			<h4 style="color: #4cb4c7">   Filter results by object features: </h3>
+			<form method="get">
+				{% csrf_token %}
+			{{ myFilter.form | crispy }} 
+				<br>
+		    <button class="btn btn-primary" type="submit"> Search</button>
+		  </form>
+
+		</div>
+	</div>
+	<div class="col">
+
+		<div class="card card-body">
+			<h4 style="color: #4cb4c7">Filter by date or keywords: </h3>
+			<form method="get">
+				{% csrf_token %}
+			{{ otherFilter.form | crispy }} 
+				
+		    <button class="btn btn-primary" type="submit">Search</button>
+		  </form>
+
+		</div>
+	</div>
+	</div>
+	
+</div>
+<br>
+<br>
+
+
+
+{% endblock %}

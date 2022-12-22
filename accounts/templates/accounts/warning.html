@@ -1,0 +1,116 @@
+{%  extends 'accounts/main.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+
+
+
+.tab div {
+    display: none;
+}
+
+.tab div:target {
+    display: block;
+  
+}
+
+.dropbtn {
+  background-color: #b32400;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius:10px;
+
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: orange;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  border-radius:10px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  max-width: 1000px;
+  overflow: auto;
+  border-radius:10px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  border-radius:10px;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+</style>
+</head>
+<body>
+<br>
+
+
+  <br/><br/>
+
+<a class="btn btn-primary  btn-sm btn-block" href=" {% url 'add_warning' %}"><h3 style="color: #000000" >Add warning</h3></a>
+
+<br>
+
+<div class="row">
+    <div class="col-md">
+
+        <div class="card card-body">
+
+            <h2 style="color: #b32400; "  >Warnings</h2>
+            
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>Asteroid</th>
+                    <th>Level</th>
+                    <th>Date posted</th>
+                </tr>
+
+                {% for i in warnings %}
+                    <tr>
+                        <td>{{i.name}}</td>
+                        <td>{{i.author}}</td>
+                        <td>{{i.asteroid}}</td>
+                        <td>{{i.level}}</td>
+                        <td>{{i.post_date}}</td>
+
+
+                    </tr>
+                {% endfor %}
+                
+            </table>
+        </div>
+    </div>
+    
+</div>
+
+
+</body>
+</html>
+{% endblock %}
+
